@@ -10,15 +10,21 @@ const getContacts = (req, res) => {
 // @route POST /api/contacts
 // @access public
 
-const createContact = (req, res) => {
-    res.status(200).json({"message" : "Create Contact"});
+const createContact = async(req, res) => {
+    console.log("The req body is :", req.body);
+    const {name, email, phone} = req.body;
+    if(!name || !email || !phone){
+        res.status(400);
+        throw new Error("All fields are mandotary");
+    }
+    res.status(201).json({"message" : "Create Contact"});
 }
 
 // @desc Get Contact
 // @route GET /api/contacts/:id
 // @access public
 
-const getContact = (req, res) => {
+const getContact = async(req, res) => {
     res.status(200).json({"message" : `Get contact for ${req.params.id}`});
 }
 
@@ -26,7 +32,7 @@ const getContact = (req, res) => {
 // @route PUT /api/contacts/:id
 // @access public
 
-const UpdateContact = (req, res) => {
+const UpdateContact = async(req, res) => {
     res.status(200).json({"message" : `Update contact for ${req.params.id}`});
 }
 
@@ -34,7 +40,7 @@ const UpdateContact = (req, res) => {
 // @route DELETE /api/contacts/:id
 // @access public
 
-const deleteContact = (req, res) => {
+const deleteContact = async(req, res) => {
     res.status(200).json({"message" : `Delete contact for ${req.params.id}`});
 }
 
